@@ -4,11 +4,16 @@
 #
 # The purpose of this file is to be used as a reminder for myself for Python
 # To help me differentiate the subtle language differences between programming languages
+# I started with C then moved on to Javascript, Java and then Swift
+# This is something which requires getting used to, hence the massive amount of comments
 #
 # (C) 2020 Beaumont Spinks, London, England
 # email beauspinks@gmail.com
 # -----------------------------------------------------------
-import matrix as matrix #  automatically added this import after i made matrix
+
+# This is a comment, using the # at the start
+# Using comments like the like below is bad practice, but good for recalling practise
+# Where possible and known, I will be commenting about best practise techniques in programming
 
 print('Beaumont Spinks')  # Basic print function
 print('*' * 10)  # This is known as an expression, its similar to a math equation
@@ -202,14 +207,14 @@ for x_count in numbers:
         output += 'x'
     print(output)
 numbers = [3, 6, 2, 151, 8, 4, 10]
-max = numbers[0]
+highest = numbers[0]
 i = 0
 for x in numbers:
     i += 1
-    if x > max:
-        max = x
-        place = i
-print(f'the largest number is {max} in the {place} position')
+    if x > highest:
+        highest = x
+        pos = i
+print(f'the largest number is {highest} in the {pos} position')
 # matrix is a grid function to set values in rows and columns
 matrix = [
     [1, 2, 3],
@@ -294,3 +299,174 @@ word = ""
 for ch in phone:
     word += p_number.get(ch, "!") + " "
 print(word)
+message = input(">")
+words = message.split(' ')
+emojis = {
+    ":)": "😄",
+    ":(": "😞",
+}  # on mac the command for emotes is ctrl-cmd-space
+output = ""
+for word in words:
+    output += emojis.get(word, word) + " "
+print(output)
+# a function, defined by user, can be called later down the program
+# PEP 8 recommended best practice to leave 2 blank lines before and after a function
+
+
+def greet_user():
+    print('Hi there!')
+    print('Welcome aboard')
+
+
+print('Start')
+greet_user()
+print('Finish')
+# the following function will be requesting an argument in for form of name parameter
+# Argument in programming is the value that we supply to a function
+# A Parameter is the placeholder defined in a function for receiving information
+
+
+def greet_name(first_name, last_name):
+    print(f'Hi there {first_name, last_name}!')
+    print(f'Welcome aboard {first_name, last_name}!')
+
+
+greet_name('John', 'Smith')
+
+# shortcut for renaming parameters - right click > refactor > rename
+# or shift f6
+
+greet_name('John', 'Smith')
+greet_name('Smith', 'John') # arguements like this are also known as positional arguements
+# the position dictates the order the arguement is passed into the function
+greet_name('John', last_name='Smith') # adding a name is to the arguement is called a keyword arguement
+# positioning then doesn't matter because it gets assigned to each parameter
+# this also makes the function calling easier to read and understand
+
+
+def square(number):
+    return number * number # return statements supply the output of a function
+
+
+def cube(number):
+    print(number * number) # the function will still do any code inside the function
+
+
+print(square(3))
+print(cube(2)) # but by default all functions in python return none, this is the case if there is no return statement
+# None == Null
+
+
+def emoji_convert(message):
+    words = message.split(' ')
+    emojis = {
+        ":)": "😄",
+        ":(": "😞",
+    }
+    output = ""
+    for word in words:
+        output += emojis.get(word, word) + " "
+    return output
+
+
+result = input(">")
+print(emoji_convert(result))
+# rewriting code into functions makes it reusable
+
+# exception handing - if letters are inputted into the function, it crashes with ValueError
+# this way instead of running the error, the function will stop and run the second block
+try:
+    age = int(input('Age: '))
+    print(age)
+except ValueError:
+    print("Only numbers nigger !!!")
+
+# this block is similar, if run with input 0, it returns ZeroDivisionError
+try:
+    age = int(input('Age: '))
+    income = 20000
+    risk = income / age
+    print(risk)
+except ZeroDivisionError:
+    print('Age cannot be 0.')
+except ValueError:
+    print("Only numbers nigger !!!")
+
+# classes in Python
+# first letter of each word capitalized
+
+
+class Point:
+    def move(self):
+        print('move')
+
+    def draw(self):
+        print('draw')
+
+
+# class defines a type, with a new type we can create new objects
+# an object is an instance of a class
+
+point1 = Point()  # to create an object you first call the class
+point1.x = 10
+point1.y = 20
+print(point1.x)
+point1.draw()  # functions withing the class are called as dot operators now
+
+point2 = Point() # creating another object of the same class are completely different objects
+# print(point2.x)
+# this would call AttributeError: 'Point' object has no attribute 'x'
+
+# initialization is the act of creating an object from a class
+# passing arguements can be used to initialize an object with specific variables
+
+
+class Point:
+    def __init__(self, x, y):  # constructor function for initialization
+        self.x = x  # use the parameters passed to initialize the object
+        self.y = y
+
+    def move(self):
+        print('move')
+
+    def draw(self):
+        print('draw')
+
+
+point = Point(9, 4)
+print(point.x)
+
+# most languages that support classes also support inheritance
+# essentially to avoid repeated code, one super class can contain all the common essential code
+
+
+class Dog:
+    def walk(self):
+        print('walk')
+
+
+class Cat:
+    def walk(self):
+        print('walk)')
+
+
+class Mammal:
+    def walk(self):
+        print('walk')
+
+
+class Dog(Mammal):  # with this the Dog class inherits all the methods defined in the mammal class
+    pass  # python doesnt't like an empty class, pass is literally used to skip the line, to make python happy
+
+
+class Cat(Mammal):
+    def meow(self):
+        print('meow')
+
+
+dog1 = Dog()
+dog1.walk()
+
+cat1 = Cat()
+cat1.walk()
+cat1.meow()
