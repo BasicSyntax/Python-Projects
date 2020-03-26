@@ -1,0 +1,5 @@
+#!/Users/lemon/Python-Projects/venv/bin/python
+
+from converter.menu import print_menu
+
+print_menu()
