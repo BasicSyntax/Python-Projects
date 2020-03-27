@@ -11,9 +11,37 @@
 # email beauspinks@gmail.com
 # -----------------------------------------------------------
 
+
+from PythonPractice import converter
+from converter import kg_to_lbs
+# multple ways to import modules
+
+# a module is similar to a class
+# it is a separate file which holds code
+# the module can be called for easy reusable code
+
+from PythonPractice import utils
+from utils import find_max
+
+from ecommerce import shipping
+from ecommerce.shipping import calc_shipping
+
+import random
+# random is a built-in python module
+# list of details on the functions at python modules docs - https://docs.python.org/3/library/random.html#module-random
+
 # This is a comment, using the # at the start
+# shortcut on mac is cmd-slash - can use to undo comment aswell
 # Using comments like the like below is bad practice, but good for recalling practise
 # Where possible and known, I will be commenting about best practise techniques in programming
+
+from pathlib import Path
+
+# Absolute path
+# /Users/lemon/Python-Projects/PythonPractice
+
+# Relative path
+# from PythonPractice import ecommerce
 
 print('Beaumont Spinks')  # Basic print function
 print('*' * 10)  # This is known as an expression, its similar to a math equation
@@ -26,9 +54,9 @@ rating = 4.9  # A Float variable
 is_published = True  # a Boolean variable, set to true or false.
 # Good practice to set use underscores in a variable name to separate words
 # Case sensitive for Booleans, always lowercase "false" and "true"
-name = input('What is your name')  # Input function will request input from user and set it to a variable
+name = input('What is your name? : ' )  # Input function will request input from user and set it to a variable
 print('Hello, ' + name + '!')
-birth_year = input('Birth year: ')
+birth_year = input('What is your birth year: ')
 # age = 2020 - birth_year
 # The above comment would have run an error
 # Variables in python are automatically set to 'str'
@@ -168,7 +196,7 @@ secret_number = 9
 guess_count = 0
 guess_limit = 3
 while guess_count < guess_limit:
-    guess = int(input('Guess: '))
+    guess = int(input('Guess the secret number : '))
     guess_count += 1
     if guess == secret_number:
         print('You won!')
@@ -256,7 +284,7 @@ numbers2.append(10)
 print(numbers)
 print(numbers2)
 # remove duplicates from a list challenge
-challenge_tuple = (1, 8, 5, 2, 8, 5, 1) # a tuple similar to a list, but is immutable
+challenge_tuple = (1, 8, 5, 2, 8, 5, 1)  # a tuple similar to a list, but is immutable
 unique = []
 
 for x in challenge_tuple:
@@ -264,7 +292,7 @@ for x in challenge_tuple:
         unique.append(x)
 print(unique)
 coordinates = (1, 2, 3)
-x, y, z = coordinates # unpacking feature, fast and easy python method
+x, y, z = coordinates  # unpacking feature, fast and easy python method
 print(y)
 print(z)
 #  Dictionary method or book, allocated information to set names
@@ -281,7 +309,7 @@ print(customer.get("birth_date"))
 print((customer.get("birth_date", "Jan 1 1980")))
 customer["birth_date"] = "Aug 23 1993"
 print(customer.get("birth_date"))
-phone = input("Phone: ")
+phone = input("Type out your phone number: ")
 
 p_number = {
     "0": "zero",
@@ -299,7 +327,7 @@ word = ""
 for ch in phone:
     word += p_number.get(ch, "!") + " "
 print(word)
-message = input(">")
+message = input("emoji translator (smileys only) >")
 words = message.split(' ')
 emojis = {
     ":)": "😄",
@@ -309,6 +337,8 @@ output = ""
 for word in words:
     output += emojis.get(word, word) + " "
 print(output)
+
+
 # a function, defined by user, can be called later down the program
 # PEP 8 recommended best practice to leave 2 blank lines before and after a function
 
@@ -321,6 +351,8 @@ def greet_user():
 print('Start')
 greet_user()
 print('Finish')
+
+
 # the following function will be requesting an argument in for form of name parameter
 # Argument in programming is the value that we supply to a function
 # A Parameter is the placeholder defined in a function for receiving information
@@ -337,23 +369,27 @@ greet_name('John', 'Smith')
 # or shift f6
 
 greet_name('John', 'Smith')
-greet_name('Smith', 'John') # arguements like this are also known as positional arguements
+greet_name('Smith', 'John')  # arguements like this are also known as positional arguements
 # the position dictates the order the arguement is passed into the function
-greet_name('John', last_name='Smith') # adding a name is to the arguement is called a keyword arguement
+greet_name('John', last_name='Smith')  # adding a name is to the arguement is called a keyword arguement
+
+
 # positioning then doesn't matter because it gets assigned to each parameter
 # this also makes the function calling easier to read and understand
 
 
 def square(number):
-    return number * number # return statements supply the output of a function
+    return number * number  # return statements supply the output of a function
 
 
 def cube(number):
-    print(number * number) # the function will still do any code inside the function
+    print(number * number)  # the function will still do any code inside the function
 
 
 print(square(3))
-print(cube(2)) # but by default all functions in python return none, this is the case if there is no return statement
+print(cube(2))  # but by default all functions in python return none, this is the case if there is no return statement
+
+
 # None == Null
 
 
@@ -369,28 +405,29 @@ def emoji_convert(message):
     return output
 
 
-result = input(">")
+result = input("Emoji converter : ")
 print(emoji_convert(result))
 # rewriting code into functions makes it reusable
 
 # exception handing - if letters are inputted into the function, it crashes with ValueError
 # this way instead of running the error, the function will stop and run the second block
 try:
-    age = int(input('Age: '))
+    age = int(input('Age (hint..type letters) : '))
     print(age)
 except ValueError:
-    print("Only numbers nigger !!!")
+    print("Only numbers !!!")
 
 # this block is similar, if run with input 0, it returns ZeroDivisionError
 try:
-    age = int(input('Age: '))
+    age = int(input('Age (hint... type 0): '))
     income = 20000
     risk = income / age
     print(risk)
 except ZeroDivisionError:
     print('Age cannot be 0.')
 except ValueError:
-    print("Only numbers nigger !!!")
+    print("Only numbers !!!")
+
 
 # classes in Python
 # first letter of each word capitalized
@@ -413,7 +450,9 @@ point1.y = 20
 print(point1.x)
 point1.draw()  # functions withing the class are called as dot operators now
 
-point2 = Point() # creating another object of the same class are completely different objects
+point2 = Point()  # creating another object of the same class are completely different objects
+
+
 # print(point2.x)
 # this would call AttributeError: 'Point' object has no attribute 'x'
 
@@ -435,6 +474,7 @@ class Point:
 
 point = Point(9, 4)
 print(point.x)
+
 
 # most languages that support classes also support inheritance
 # essentially to avoid repeated code, one super class can contain all the common essential code
@@ -470,3 +510,70 @@ dog1.walk()
 cat1 = Cat()
 cat1.walk()
 cat1.meow()
+
+print(kg_to_lbs(23))
+print(converter.kg_to_lbs(90))
+print(kg_to_lbs(100))
+
+long_list = [1, 6, 991, 6, 3, 8, 1, 5, 3, 7, 1, 7, 123, 75, 234, 14, 12]
+
+mx = find_max(long_list)
+print(utils.find_max(long_list))
+print(mx)
+print(max)  # max is a built in python function, python built in funcitons are highlighted purple
+
+shipping.calc_shipping() # imported functions from the ecommerce package
+calc_shipping()
+
+for i in range(3):
+    print(random.random())
+
+for i in range(3):
+    print(random.randint(10, 60))
+
+members = ['James', 'Barry', 'Lewis', 'George', 'Gary']
+print(random.choice(members))
+
+class Dice:
+    def roll(self):
+        x = (random.randint(1, 6), random.randint(1, 6))
+        return x
+
+    def rol(self):
+        first = random.randint(1, 6)
+        second = random.randint(1, 6)
+        return first, second
+
+dice = Dice()
+
+roll = dice.roll()
+print(roll)
+print(type(roll))
+
+rol = dice.rol()
+print(rol)
+print(type(rol))
+
+# both methods in the Dice class return tuples in two different ways
+
+path = Path()  # sets the variable path to point to the current directory
+
+path = Path("ecommerce")  # adds a file in the current directory
+print(path.exists())  # returns a boolean if ecommerce exists in the directory
+
+path = Path("emails")
+print(path.mkdir())  # makes an emails directory, and prints None because there is no output
+print(path.rmdir())  # removes the emails directory
+
+path = Path()
+
+print(path.glob('*'))  # these two prints are generator objects
+print(path.glob('*.*'))
+
+for file in path.glob('*.py'):  # iteratign over the generator object to print files in the directory
+    print(file)
+
+# installed openpyxl through pypi.org
+# using 'pip intall openpyxl' on the terminal
+
+# End of lessons tutorials - following projects make sense to do in separate files
