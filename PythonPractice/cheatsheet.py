@@ -54,7 +54,7 @@ rating = 4.9  # A Float variable
 is_published = True  # a Boolean variable, set to true or false.
 # Good practice to set use underscores in a variable name to separate words
 # Case sensitive for Booleans, always lowercase "false" and "true"
-name = input('What is your name? : ' )  # Input function will request input from user and set it to a variable
+name = input('What is your name? : ')  # Input function will request input from user and set it to a variable
 print('Hello, ' + name + '!')
 birth_year = input('What is your birth year: ')
 # age = 2020 - birth_year
@@ -522,7 +522,7 @@ print(utils.find_max(long_list))
 print(mx)
 print(max)  # max is a built in python function, python built in funcitons are highlighted purple
 
-shipping.calc_shipping() # imported functions from the ecommerce package
+shipping.calc_shipping()  # imported functions from the ecommerce package
 calc_shipping()
 
 for i in range(3):
@@ -534,6 +534,7 @@ for i in range(3):
 members = ['James', 'Barry', 'Lewis', 'George', 'Gary']
 print(random.choice(members))
 
+
 class Dice:
     def roll(self):
         x = (random.randint(1, 6), random.randint(1, 6))
@@ -543,6 +544,7 @@ class Dice:
         first = random.randint(1, 6)
         second = random.randint(1, 6)
         return first, second
+
 
 dice = Dice()
 

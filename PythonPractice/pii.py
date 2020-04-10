@@ -1,5 +1,6 @@
 import random
 
+
 def estimate_pi(n):
     num_point_circle = 0
     num_point_total = 0
@@ -14,4 +15,4 @@ def estimate_pi(n):
     return 4 * num_point_circle/num_point_total
 
 
-print(estimate_pi(9999999))
+print(estimate_pi(99999))
