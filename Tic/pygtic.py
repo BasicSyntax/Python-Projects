@@ -53,6 +53,7 @@ def playMove():
             T9.draw_x()
             insertLetter('X', 9)
 
+
 # Computer playing side starts here .....
 
 
@@ -108,7 +109,6 @@ def compMove():
 
     if len(corners_open) >= 1:
         move = selectRandom(corners_open)
-        corners_open = []
         if move == 1:
             T1.draw_o()
             print('corn move 1')
@@ -132,8 +132,6 @@ def compMove():
 
     if len(edges_open) >= 1:
         move = selectRandom(corners_open)
-        while len(edges_open) >= 2:
-            edges_open.pop()
 
     if move == 2:
         T2.draw_o()
@@ -190,40 +188,27 @@ def redrawGameWindow():
 
 
 def main():
-    print('Tie Game! ....j214')
-    pass
-    # if not isBoardFull(board):
-    #     if not (isWinner(board, 'O')):
-    #         playMove()
-    #         return
-    #     else:
-    #         print(board)
-    #         print('Sorry, O\'s won this time! .....a123')
-    #         return
-    #
-    # else:
-    #     print(board)
-    #     print('Tie Game! ....j214')
-    #     return
+    print(board)
+    if not isBoardFull(board):
+        if isWinner(board, 'O'):
+            print('Sorry, O\'s won this time! .....a123')
+        if not (isWinner(board, 'X')):
+            mo = compMove()
+            if mo == 0:
+                print(board)
+                print('Tie Game! .....l123')
+            else:
+                insertLetter('O', mo)
+                print(board)
+                return
+            return
+        else:
+            print(board)
+            print('X\'s won this time! Good Job! ....h456')
+    else:
+        print(board)
+        print('Tie Game! ....j214')
 
-
-# if not (isWinner(board, 'X')):
-#     print('computers turn starts here ...')
-#     move = compMove()
-#     print('computers turn ends here ...')
-#     if move == 0:
-#         print(board)
-#         print('Tie Game! .....l123')
-#         return
-#     else:
-#         insertLetter('O', move)
-#         print(board)
-#         return
-#     return
-# else:
-#     print(board)
-#     print('X\'s won this time! Good Job! ....h456')
-#     return
 
 # ends here .....
 
@@ -249,16 +234,34 @@ T8 = Tiles((0, 0, 0), (360, 180, 180, 180))
 T9 = Tiles((0, 0, 0), (360, 360, 180, 180))
 
 turn = 1
-
+clickLoop = 0
 # MAIN LOOP
 
 print('Welcome to  Tic Tac Toe!')
 
 while run:
-    if pygame.mouse.get_pressed()[0]:
+    if clickLoop > 0:
+        clickLoop += 1
+    if clickLoop > 8:
+        clickLoop = 0
+
+    if pygame.mouse.get_pressed()[0] and clickLoop == 0:
         playMove()
-        main()
-        pass
+        # main()
+        if not isBoardFull(board):
+            m = compMove()
+            print('compmove')
+            insertLetter('O', m)
+            if isWinner(board, 'O'):
+                print('Sorry, O\'s won this time! .....1111111')
+                # run = False
+            elif isWinner(board, 'X'):
+                print('X\'s won this time! Good Job! ....3333333')
+                # run = False
+        else:
+            print('Tie Game! ....88888')
+            # run = False
+        clickLoop = 1
 
     redrawGameWindow()
 
