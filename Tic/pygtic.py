@@ -1,7 +1,7 @@
 import pygame
+import random
 
 pygame.init()
-
 
 class Tiles(object):
     x = pygame.image.load('images/x_orange.png')
@@ -12,7 +12,6 @@ class Tiles(object):
         self.colour = colour
         self.rect = rect
         win.blit(self.grid, self.rect)
-        # pygame.draw.rect(win, self.colour, self.rect, 4)  # 1
 
     def draw_x(self):
         win.blit(self.x, self.rect)
@@ -25,79 +24,65 @@ def playMove():
     if 180 >= pygame.mouse.get_pos()[0]:
         if 180 >= pygame.mouse.get_pos()[1]:
             T1.draw_x()
-            insertLetter('X', 1)
+            b[1] = 'X'
         elif 360 >= pygame.mouse.get_pos()[1] >= 180:
             T2.draw_x()
-            insertLetter('X', 2)
+            b[2] = 'X'
         else:
             T3.draw_x()
-            insertLetter('X', 3)
+            b[3] = 'X'
     elif 360 >= pygame.mouse.get_pos()[0] >= 180:
         if 180 >= pygame.mouse.get_pos()[1]:
             T4.draw_x()
-            insertLetter('X', 4)
+            b[4] = 'X'
         elif 360 >= pygame.mouse.get_pos()[1] >= 180:
             T5.draw_x()
-            insertLetter('X', 5)
+            b[5] = 'X'
         else:
             T6.draw_x()
-            insertLetter('X', 6)
+            b[6] = 'X'
     else:
         if 180 >= pygame.mouse.get_pos()[1]:
             T7.draw_x()
-            insertLetter('X', 7)
+            b[7] = 'X'
         elif 360 >= pygame.mouse.get_pos()[1] >= 180:
             T8.draw_x()
-            insertLetter('X', 8)
+            b[8] = 'X'
         else:
             T9.draw_x()
-            insertLetter('X', 9)
-
-
-# Computer playing side starts here .....
+            b[9] = 'X'
 
 
 def compMove():
-    possible_moves = [x for x, letter in enumerate(board) if letter == ' ' and x != 0]
+    possible_moves = [x for x, letter in enumerate(b) if letter == ' ' and x != 0]
     move = 0
     for let in ['O', 'X']:
         for i in possible_moves:
-            board_copy = board[:]
+            board_copy = b[:]
             board_copy[i] = let
             if isWinner(board_copy, let):
                 move = i
                 if move == 1:
                     T1.draw_o()
-                    print('winning jy543')
                 elif move == 3:
                     T3.draw_o()
-                    print('winning jy124')
                 elif move == 7:
                     T7.draw_o()
-                    print('winning as254')
                 elif move == 9:
                     T9.draw_o()
-                    print('winning ky876')
                 elif move == 2:
                     T2.draw_o()
-                    print('winning bf34')
                 elif move == 4:
                     T4.draw_o()
-                    print('winning sd234')
                 elif move == 6:
                     T6.draw_o()
-                    print('winning nb235')
                 else:
                     T8.draw_o()
-                    print('winning mjh4356')
-                print('move = ' + str(move))
                 return move
 
     if 5 in possible_moves:
         move = 5
         T5.draw_o()
-        print('mid move')
-        print('move = ' + str(move))
         return move
 
     corners_open = []
@@ -105,23 +90,17 @@ def compMove():
     for i in possible_moves:
         if i in [1, 3, 7, 9]:
             corners_open.append(i)
-            print(i)
 
     if len(corners_open) >= 1:
-        move = selectRandom(corners_open)
+        move = corners_open[random.randrange(0, (len(corners_open)))]
         if move == 1:
             T1.draw_o()
-            print('corn move 1')
         elif move == 3:
             T3.draw_o()
-            print('corn move 3')
         elif move == 7:
             T7.draw_o()
-            print('corn move 7')
         else:
             T9.draw_o()
-            print('corn move 9')
-        print('move = ' + str(move))
         return move
 
     edges_open = []
@@ -131,30 +110,17 @@ def compMove():
             edges_open.append(i)
 
     if len(edges_open) >= 1:
-        move = selectRandom(corners_open)
+        move = corners_open[random.randrange(0, (len(corners_open)))]
 
     if move == 2:
         T2.draw_o()
-        print('edge move 2')
     elif move == 4:
         T4.draw_o()
-        print('edge move 4')
     elif move == 6:
         T6.draw_o()
-        print('edge move 6')
     else:
         T8.draw_o()
-        print('edge move 8')
-    print('move = ' + str(move))
     return move
-
-
-def insertLetter(letter, pos):
-    board[pos] = letter
-
-
-def spaceIsFree(pos):
-    return board[pos] == ' '
 
 
 def isWinner(bo, le):
@@ -168,55 +134,15 @@ def isWinner(bo, le):
             (bo[3] == le and bo[5] == le and bo[7] == le))
 
 
-def selectRandom(li):
-    import random
-    ln = len(li)
-    r = random.randrange(0, ln)
-    return li[r]
-
-
-def isBoardFull(b):
-    if b.count(' ') > 1:
-        return False
-    else:
-        return True
-
-
 def redrawGameWindow():
     pygame.display.update()
     pass
 
 
-def main():
-    print(board)
-    if not isBoardFull(board):
-        if isWinner(board, 'O'):
-            print('Sorry, O\'s won this time! .....a123')
-        if not (isWinner(board, 'X')):
-            mo = compMove()
-            if mo == 0:
-                print(board)
-                print('Tie Game! .....l123')
-            else:
-                insertLetter('O', mo)
-                print(board)
-                return
-            return
-        else:
-            print(board)
-            print('X\'s won this time! Good Job! ....h456')
-    else:
-        print(board)
-        print('Tie Game! ....j214')
-
-
-# ends here .....
-
-
 screenWidth = 540
 screenHeight = 540
 font = pygame.font.SysFont('comicsans', 30, True)
-board = [' ' for x in range(10)]
+b = [' ' for x in range(10)]
 run = True
 
 pygame.display.set_caption("TicTacToe with Machine Learning by BSpinks")
@@ -247,20 +173,15 @@ while run:
 
     if pygame.mouse.get_pressed()[0] and clickLoop == 0:
         playMove()
-        # main()
-        if not isBoardFull(board):
+        if b.count(' ') > 1:
             m = compMove()
-            print('compmove')
-            insertLetter('O', m)
-            if isWinner(board, 'O'):
+            b[m] = 'O'
+            if isWinner(b, 'O'):
                 print('Sorry, O\'s won this time! .....1111111')
-                # run = False
-            elif isWinner(board, 'X'):
+            elif isWinner(b, 'X'):
                 print('X\'s won this time! Good Job! ....3333333')
-                # run = False
         else:
             print('Tie Game! ....88888')
-            # run = False
         clickLoop = 1
 
     redrawGameWindow()
